@@ -13,8 +13,8 @@ let Testv4 = "0x499d11E0b6eAC7c0593d8Fb292DCBbF815Fb29Ae";
 
 main();
 async function main() {
-    //rinkeby
-    for (let i = 0; i < 6; i++) {
+    console.log("--------------rinkeby--------------");
+    for (let i = 0; i < 18; i++) {
         let path = "m/44'/60'/0'/0/" + i;
         const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
         const signer = wallet.connect(provider_rinkeby);
@@ -44,8 +44,8 @@ async function main() {
             }
         });
     }
-    //goerli
-    for (let i = 0; i < 6; i++) {
+    console.log("--------------goerli--------------");
+    for (let i = 0; i < 18; i++) {
         let path = "m/44'/60'/0'/0/" + i;
         const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
         const signer = wallet.connect(provider_goerli);

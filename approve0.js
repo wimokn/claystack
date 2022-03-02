@@ -27,12 +27,10 @@ async function main() {
         console.log(tx.hash);
     } 
  */
-      for(let i=0;i<6;i++) {
+      for(let i=9;i<18;i++) {
         let path = "m/44'/60'/0'/0/"+i;
         const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
         const signer = wallet.connect(provider_goerli);
-        // const contract = new ethers.Contract(contractAddr, abi, signer);
-        // const tx = await contract.Start();
         console.log(i);
         console.log(wallet.address);
          const tx =  await signer.sendTransaction({
