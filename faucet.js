@@ -3,27 +3,36 @@ const mnemonic = process.env.ENV_MN;
 
 const provider_rinkeby = new ethers.providers.JsonRpcProvider("https://eth-rinkeby.alchemyapi.io/v2/GIlmeHAY2YPTfvs_8JDU0Lsw6iGKjyxC");
 const provider_goerli = new ethers.providers.JsonRpcProvider("https://eth-goerli.alchemyapi.io/v2/NtdJI9V0C07WUw8VHOA5tBJVEPKAqdp1");
-let contractAddr_rinkeby = "0x880c80c6739c05f9ddb8bc2597b65d1ec9b92c10";
-let contractAddr_goerli = "0xe29d3d4d72997b31ccdf8188113c189f1106f6b8";
+let contractAddr_rinkeby = "0x83b7cf23b047df8b0c69649df43362631cbbedbf";
+let contractAddr_goerli = "0x11fe0b9b1a408f5d790c6ea5666ee6f31306408f";
+
 main();
 async function main() {
-  /* for(let i=0;i<6;i++) {
-    let path = "m/44'/60'/0'/0/"+i;
+  console.log("--------------rinkeby--------------");
+  for (let i = 0; i < 18; i++) {
+    let path = "m/44'/60'/0'/0/" + i;
     const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
     const signer = wallet.connect(provider_rinkeby);
     console.log(i);
     console.log(wallet.address);
-     const tx =  await signer.sendTransaction({
-        to: contractAddr_rinkeby,
-        value: 0,
-        data: "0xdf8de3e700000000000000000000000054fe55d5d255b8460fb3bc52d5d676f9ae5697cd",
-        gasPrice: "0xD09DC300",
-        gasLimit: 500000
-    });  
+    const tx = await signer.sendTransaction({
+      to: contractAddr_rinkeby,
+      value: 0,
+      data: "0xdf8de3e700000000000000000000000054fe55d5d255b8460fb3bc52d5d676f9ae5697cd",
+      gasPrice: "0xD09DC300",
+      gasLimit: 500000
+    });
     console.log(tx.hash);
-}  */
+  }
 
-  for (let i = 0; i < 6; i++) {
+  console.log("--------------goerli--------------");
+  //check every even day at 12:00 UTC
+  var time = new Date();
+  var day = time.getDate();
+  if (!(isEven(day) && time.getUTCHours() == 12))
+    return;
+
+  for (let i = 0; i < 18; i++) {
     let path = "m/44'/60'/0'/0/" + i;
     const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
     const signer = wallet.connect(provider_goerli);
@@ -32,10 +41,14 @@ async function main() {
     const tx = await signer.sendTransaction({
       to: contractAddr_goerli,
       value: 0,
-      data: "	tokenIndices	uint256[]	19119",
+      data: "0xdf8de3e7000000000000000000000000499d11e0b6eac7c0593d8fb292dcbbf815fb29ae",
       gasPrice: "0xD09DC300",
       gasLimit: 500000
     });
     console.log(tx.hash);
   }
+}
+
+function isEven(n) {
+  return n % 2 == 0;
 }

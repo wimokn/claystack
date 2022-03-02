@@ -13,8 +13,8 @@ let csMATIC = "0x3fb4601911871b635011aF01eDda5854F27560ce";
 
 main();
 async function main() {
-
-  for (let i = 0; i < 6; i++) {
+  console.log("--------------rinkeby--------------");
+  for (let i = 0; i < 18; i++) {
     let path = "m/44'/60'/0'/0/" + i;
     const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
     const signer = wallet.connect(provider_rinkeby);
@@ -42,7 +42,14 @@ async function main() {
     });
   }
 
-  for (let i = 0; i < 6; i++) {
+  console.log("--------------goerli--------------");
+  //check every even day at 16:00 UTC
+  var time = new Date();
+  var day = time.getDate();
+  if (!(isEven(day) && time.getUTCHours() == 16))
+    return;
+
+  for (let i = 0; i < 18; i++) {
     let path = "m/44'/60'/0'/0/" + i;
     const wallet = ethers.Wallet.fromMnemonic(mnemonic, path);
     const signer = wallet.connect(provider_goerli);
@@ -79,3 +86,7 @@ async function getBalance(contractAddr, address, provider) {
     resolve(balanceOf);
   });
 }
+
+function isEven(n) {
+  return n % 2 == 0;
+}  
